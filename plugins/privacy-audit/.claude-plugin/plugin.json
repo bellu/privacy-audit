@@ -1,14 +1,11 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
   "name": "privacy-audit",
   "version": "1.0.0",
   "description": "Audit your app's legal documents against its actual data practices. Supports automatic code analysis, GDPR checklist, and multi-jurisdiction support (CCPA, LGPD, UK GDPR, and more).",
   "author": {
-    "name": "Gabriele",
+    "name": "Gabriele Bellucci",
     "url": "https://github.com/bellu"
   },
   "keywords": ["privacy", "gdpr", "legal", "compliance", "audit", "terms-of-service", "ccpa"],
-  "category": "security",
-  "skills": ["./skills/privacy-audit"],
-  "commands": ["./commands/audit.md"]
+  "skills": ["./skills/privacy-audit"]
 }
