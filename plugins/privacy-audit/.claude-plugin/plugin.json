@@ -9,17 +9,6 @@
   },
   "keywords": ["privacy", "gdpr", "legal", "compliance", "audit", "terms-of-service", "ccpa"],
   "category": "security",
-  "skills": [
-    {
-      "name": "privacy-audit",
-      "path": "./skills/privacy-audit"
-    }
-  ],
-  "commands": [
-    {
-      "name": "audit",
-      "path": "./commands/audit.md",
-      "description": "Run a full privacy & legal audit on your project"
-    }
-  ]
+  "skills": ["./skills/privacy-audit"],
+  "commands": ["./commands/audit.md"]
 }
