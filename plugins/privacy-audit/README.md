@@ -22,6 +22,24 @@ Once installed, run from inside your project:
 
 Claude will scan your codebase, read your legal documents, and produce a full compliance report.
 
+### Changing jurisdiction
+
+By default the audit runs against GDPR (EU). To target a different jurisdiction, add it to your prompt:
+
+```
+/privacy-audit:audit
+Target jurisdictions: CCPA
+```
+
+Multiple jurisdictions at once:
+
+```
+/privacy-audit:audit
+Target jurisdictions: GDPR, CCPA, LGPD
+```
+
+Supported: GDPR, CCPA, LGPD, UK GDPR, PIPL, Australian Privacy Act.
+
 See [commands/audit.md](./commands/audit.md) for all options and flags.
 
 ## What it checks
