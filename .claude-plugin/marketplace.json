@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "privacy-audit",
+  "version": "1.0.0",
+  "description": "Privacy & legal document audit skill for Claude Code — checks if your Privacy Policy, ToS, Cookie Policy and DPA actually reflect what your app does. GDPR checklist included.",
+  "owner": {
+    "name": "Gabriele",
+    "email": ""
+  },
+  "plugins": [
+    {
+      "name": "privacy-audit",
+      "description": "Audit your app's legal documents against its actual data practices. Supports code analysis (reads your repo to extract data practices automatically), GDPR checklist, and multi-jurisdiction support (CCPA, LGPD, UK GDPR, and more).",
+      "source": "./plugins/privacy-audit",
+      "category": "security",
+      "keywords": ["privacy", "gdpr", "legal", "compliance", "audit", "terms-of-service", "ccpa"]
+    }
+  ]
+}
