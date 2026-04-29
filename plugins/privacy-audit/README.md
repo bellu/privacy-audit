@@ -22,6 +22,28 @@ Once installed, run from inside your project:
 
 Claude will scan your codebase, read your legal documents, and produce a full compliance report.
 
+### Audit from URLs (no codebase needed)
+
+No source code? Provide document URLs + app description:
+
+```
+/privacy-audit:audit
+Privacy Policy URL: https://example.com/privacy
+App description: Newsletter SaaS — collects emails, tracks opens via Mailchimp, payments via Stripe
+```
+
+Multiple documents:
+
+```
+/privacy-audit:audit
+Privacy Policy URL: https://example.com/privacy
+Terms of Service URL: https://example.com/terms
+Cookie Policy URL: https://example.com/cookies
+App description: Newsletter SaaS — collects emails, tracks opens via Mailchimp, payments via Stripe
+```
+
+Claude fetches the documents automatically and runs the full audit.
+
 ### Changing jurisdiction
 
 By default the audit runs against GDPR (EU). To target a different jurisdiction, add it to your prompt:

@@ -83,7 +83,52 @@ Once installed, just talk to Claude naturally:
 
 > *"I have a JS widget that collects user feedback and stores it in Supabase — what should my privacy policy say?"*
 
+### Audit from URLs (no codebase needed)
+
+If you don't have source code available, provide the URL of your legal documents and a description of your app:
+
+> *"Audit this privacy policy for GDPR compliance: https://example.com/privacy — it's a SaaS that collects email, usage analytics via Mixpanel, and stores data on AWS S3."*
+
+Or with multiple documents:
+
+> *"Audit my legal docs:
+> - Privacy Policy: https://example.com/privacy
+> - Terms of Service: https://example.com/terms
+> - Cookie Policy: https://example.com/cookies
+>
+> App: a newsletter platform that collects emails via Mailchimp, tracks opens/clicks, and uses Stripe for payments."*
+
+Or with Claude Code:
+
+```
+/privacy-audit:audit
+Privacy Policy URL: https://example.com/privacy
+App description: Newsletter SaaS — collects emails, tracks opens via Mailchimp, payments via Stripe
+```
+
+Claude fetches the documents automatically and runs the full audit.
+
 Claude will automatically use the skill and produce a full audit report.
+
+### Changing jurisdiction
+
+Default is GDPR (EU). To target a different jurisdiction, specify it in your prompt:
+
+> *"Audit my privacy policy for CCPA compliance — here's the policy: [text]"*
+
+Or when using Claude Code:
+
+```
+/privacy-audit:audit
+Target jurisdictions: CCPA
+```
+
+Multiple jurisdictions at once:
+
+```
+/privacy-audit:audit
+Target jurisdictions: GDPR, CCPA, LGPD
+```
 
 ---
 
