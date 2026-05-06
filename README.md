@@ -1,30 +1,8 @@
-# 🔍 Privacy Audit Skill for Claude
+# 🔍 Privacy Audit — Claude Plugin
 
-A custom Claude skill that audits whether your app's legal documents — Privacy Policy, Terms of Service, Cookie Policy, and DPA — actually reflect what your app does.
+A Claude Code plugin (and Claude.ai skill) that audits whether your app's legal documents — Privacy Policy, Terms of Service, Cookie Policy, and DPA — actually reflect what your app does.
 
 Built for indie developers, SaaS founders, and freelancers who want to ship compliant products without a lawyer on retainer.
-
----
-
-## What it does
-
-You provide:
-- A description of your app (what data it collects, how it stores it, third-party integrations)
-- Your legal documents (Privacy Policy, ToS, Cookie Policy, DPA — any combination)
-
-The skill produces:
-- A **structured audit report** with findings grouped by severity
-- An **interactive artifact** (Claude API-powered) for live in-browser auditing
-- A **GDPR checklist** with 38 requirements, each marked ✅ / ⚠️ / ❌
-- **Jurisdiction-specific checks** for GDPR, CCPA (California), LGPD (Brazil), UK GDPR, and more
-
-### Severity levels
-
-| Level | Meaning |
-|---|---|
-| 🔴 Critical | Legal risk — undisclosed data collection, missing legal basis, etc. |
-| 🟡 Important | Compliance risk — vague language, missing cookie disclosure, etc. |
-| 🟢 Minor | Best practice — outdated contact info, missing document version, etc. |
 
 ---
 
@@ -32,14 +10,12 @@ The skill produces:
 
 ### Option A — Claude Code (recommended)
 
-If you use [Claude Code](https://docs.anthropic.com/en/docs/claude-code) in your terminal:
-
 ```bash
 # Add this repo as a marketplace (one-time setup)
 claude plugin marketplace add https://github.com/bellu/privacy-audit
 
 # Install the plugin
-claude plugin install privacy-audit@privacy-audit
+claude plugin install privacy-audit
 ```
 
 Then run from inside any project:
@@ -67,109 +43,64 @@ cd privacy-audit
 python package.py
 ```
 
-This produces `privacy-audit.skill` in the current directory, ready to install via Option B.
-
 ---
 
 ## Usage
 
-Once installed, just talk to Claude naturally:
-
-> *"Audit my privacy policy — here's what my app does: [description]. And here's the policy: [text]"*
-
-> *"Does my Terms of Service reflect what my SaaS actually does?"*
-
-> *"Check my privacy policy for GDPR compliance"*
-
-> *"I have a JS widget that collects user feedback and stores it in Supabase — what should my privacy policy say?"*
-
-### Audit from URLs (no codebase needed)
-
-If you don't have source code available, provide the URL of your legal documents and a description of your app:
-
-> *"Audit this privacy policy for GDPR compliance: https://example.com/privacy — it's a SaaS that collects email, usage analytics via Mixpanel, and stores data on AWS S3."*
-
-Or with multiple documents:
-
-> *"Audit my legal docs:
-> - Privacy Policy: https://example.com/privacy
-> - Terms of Service: https://example.com/terms
-> - Cookie Policy: https://example.com/cookies
->
-> App: a newsletter platform that collects emails via Mailchimp, tracks opens/clicks, and uses Stripe for payments."*
-
-Or with Claude Code:
-
-```
+**Claude Code:**
+```bash
 /privacy-audit:audit
-Privacy Policy URL: https://example.com/privacy
-App description: Newsletter SaaS — collects emails, tracks opens via Mailchimp, payments via Stripe
+/privacy-audit:audit --url https://yourapp.com/privacy
+/privacy-audit:audit --jurisdiction ccpa
+/privacy-audit:audit --jurisdiction all
 ```
 
-Claude fetches the documents automatically and runs the full audit.
-
-Claude will automatically use the skill and produce a full audit report.
-
-### Changing jurisdiction
-
-Default is GDPR (EU). To target a different jurisdiction, specify it in your prompt:
-
-> *"Audit my privacy policy for CCPA compliance — here's the policy: [text]"*
-
-Or when using Claude Code:
-
-```
-/privacy-audit:audit
-Target jurisdictions: CCPA
-```
-
-Multiple jurisdictions at once:
-
-```
-/privacy-audit:audit
-Target jurisdictions: GDPR, CCPA, LGPD
-```
+**Claude.ai** — just talk naturally:
+> *"Audit my privacy policy against my codebase"*
+> *"Check my privacy policy for GDPR compliance — here's the URL: https://..."*
+> *"Does my ToS reflect what my app actually does?"*
 
 ---
 
-## What's inside
+## What it checks
 
-```
-privacy-audit/
-├── SKILL.md                          # Main skill instructions
-└── references/
-    ├── gdpr-checklist.md             # 38-point GDPR checklist (Art. 6, 12–22, 28, 32...)
-    ├── jurisdictions.md              # GDPR, CCPA, LGPD, PIPL, UK GDPR, Australian Privacy Act
-    └── artifact-template.md         # React scaffold for interactive audit UI
-```
-
----
+- Privacy Policy, ToS, Cookie Policy, DPA
+- 🔴 Critical gaps — legal risk (undisclosed data collection, missing legal basis, etc.)
+- 🟡 Important gaps — compliance risk (vague language, missing cookie disclosure, etc.)
+- 🟢 Minor issues — best practice (outdated contact info, missing document version, etc.)
+- ✅ 38-point GDPR checklist (Art. 6, 12–22, 28, 32, ePrivacy, cross-border transfers)
 
 ## Supported jurisdictions
 
-- 🇪🇺 **GDPR** (EU) — full 38-point checklist
-- 🇺🇸 **CCPA / CPRA** (California)
-- 🇧🇷 **LGPD** (Brazil)
-- 🇨🇳 **PIPL** (China)
-- 🇬🇧 **UK GDPR**
-- 🇦🇺 **Australian Privacy Act**
-- 🌍 **General best practices** (jurisdiction-neutral)
+🇪🇺 GDPR · 🇺🇸 CCPA/CPRA · 🇧🇷 LGPD · 🇨🇳 PIPL · 🇬🇧 UK GDPR · 🇦🇺 Australian Privacy Act
+
+---
+
+## Structure
+
+```
+privacy-audit/
+├── .claude-plugin/
+│   └── plugin.json           # Plugin manifest
+├── skills/
+│   └── privacy-audit/
+│       ├── SKILL.md           # Main skill instructions
+│       └── references/
+│           ├── gdpr-checklist.md
+│           ├── jurisdictions.md
+│           ├── code-analysis.md
+│           └── artifact-template.md
+├── commands/
+│   └── audit.md              # /privacy-audit:audit command
+├── privacy-audit.skill        # Prebuilt file for Claude.ai
+└── package.py                 # Build script
+```
 
 ---
 
 ## Disclaimer
 
-This skill provides automated analysis for informational purposes only. It is **not legal advice** and does not substitute for a qualified privacy lawyer. Always consult a legal professional for compliance-critical decisions.
-
----
-
-## Contributing
-
-PRs welcome. Useful contributions:
-- New jurisdiction checklists (PIPEDA, PDPA, etc.)
-- Additional audit dimensions (accessibility, security headers, etc.)
-- Improved GDPR checklist items
-- Better artifact UI
+Automated analysis only — not legal advice. Always consult a qualified privacy lawyer for compliance-critical decisions.
 
 ---
 
